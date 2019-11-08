@@ -24,10 +24,14 @@ public class Hero : MonoBehaviour {
 
 
     //TODO: Add function delegate declaration
+    // Declare a new delegate type WeaponFireDelegate
+    public delegate void WeaponFireDelegate();
+    // Create a WeaponFireDelegate field named fireDelegate.
+    public WeaponFireDelegate fireDelegate;
 
 
 
-	void Start()
+    void Start()
     {
         if (S == null)
         {
@@ -37,7 +41,7 @@ public class Hero : MonoBehaviour {
         {
             Debug.LogError("Hero.Awake() - Attempted to assign second Hero.S!");
         }
-        //fireDelegate += TempFire;
+        fireDelegate += TempFire;
 
         // Reset the weapons to start _Hero with 1 blaster
         ClearWeapons();
@@ -71,13 +75,11 @@ public class Hero : MonoBehaviour {
         // First, make sure the button is pressed: Axis("Jump")
         // Then ensure that fireDelegate isn't null to avoid an error
 
-
-
+        if (Input.GetAxis("Jump") == 1 && fireDelegate != null)
+        { 
+        fireDelegate();
+        }
     }
-
-
-
-
     //TODO: replace or comment out later
     void TempFire()
     {                                                      
@@ -96,7 +98,7 @@ public class Hero : MonoBehaviour {
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         Transform rootT = other.gameObject.transform.root;
         GameObject go = rootT.gameObject;

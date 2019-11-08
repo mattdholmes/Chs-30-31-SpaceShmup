@@ -12,6 +12,7 @@ public class Enemy_3 : Enemy { // Enemy_3 extends Enemy
     public Vector3[] points;
     public float birthTime;
 
+    // Again, Start works well because it is not used by the Enemy superclass
     private void Start()
     {
         points = new Vector3[3]; // Initialize points
